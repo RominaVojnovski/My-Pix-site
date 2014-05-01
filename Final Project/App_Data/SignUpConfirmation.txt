@@ -1,0 +1,13 @@
+﻿Hi <%UserName%>,
+Thank you for signing up for a new account at MyPix. 
+To log in to the site, use the following details:
+Username: <%UserName%>
+Password: <%Password%>
+
+Confirm your account by clicking on the link below to verify your email.
+The MyPix Team
+ 
+
+<%VerificationUrl%>
+
+
