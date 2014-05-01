@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.Entity;
 using Final_Project.Models;
 using Microsoft.AspNet.Identity;
+using System.Web.UI.HtmlControls;
 
 namespace Final_Project
 {
@@ -17,6 +18,7 @@ namespace Final_Project
         Comment mycomment;
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             /*If user is not authenticated send them to login*/
             if (!User.Identity.IsAuthenticated)
             {
@@ -58,18 +60,36 @@ namespace Final_Project
                         int r = 0;
                         foreach (var x in commentresponses)
                         {
+                           //create new div row
+                            
+                            HtmlGenericControl divrow = new HtmlGenericControl("div");
+                            divrow.Attributes.Add("class", "row");
+
+                            HtmlGenericControl divcol12 = new HtmlGenericControl("div");
+                            divcol12.Attributes.Add("class", "col-md-12");
+
                             Label newLabel = new Label();
                             newLabel.ID = "NewLabel" + r;
                             newLabel.Text = x.ResponseText;
-                            PlaceHolderResponses.Controls.Add(newLabel);
-                            PlaceHolderResponses.Controls.Add(new LiteralControl("<hr />"));
-
+                         
+                            
                             Label newLabel2 = new Label();
                             newLabel2.ID = "NewLabel_2"+ r;
-                            newLabel2.Text = Convert.ToString(x.WhenPosted);
-                            PlaceHolderDatePoster.Controls.Add(newLabel2);
-                            PlaceHolderDatePoster.Controls.Add(new LiteralControl("<hr />"));
+                            newLabel2.Text = Convert.ToString(x.WhenPosted)+" EST";
 
+                            Label newLabel3 = new Label();
+                            newLabel3.ID = "NewLabel_3" + r;
+                            newLabel3.Text = "by: " + x.Poster.PosterName + "&nbsp;&nbsp;";
+
+                            divcol12.Controls.Add(newLabel);
+                            divcol12.Controls.Add(new LiteralControl("<br/>"));
+                            divcol12.Controls.Add(newLabel3);
+                            
+                            divcol12.Controls.Add(newLabel2);
+                            divcol12.Controls.Add(new LiteralControl("<hr />"));
+                            divrow.Controls.Add(divcol12);
+
+                            PlaceHolderDynamicDiv.Controls.Add(divrow);
                             r++;
 
                         }

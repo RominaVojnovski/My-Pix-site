@@ -40,22 +40,13 @@ namespace Final_Project {
         protected global::System.Web.UI.WebControls.Label LabelCommentBody;
         
         /// <summary>
-        /// PlaceHolderResponses control.
+        /// PlaceHolderDynamicDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolderResponses;
-        
-        /// <summary>
-        /// PlaceHolderDatePoster control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolderDatePoster;
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolderDynamicDiv;
         
         /// <summary>
         /// TextBoxResponse control.

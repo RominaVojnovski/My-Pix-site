@@ -8,6 +8,7 @@
     <div class = "form-group">
         <br />
         Title:<asp:TextBox ID="TitleTextBox" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter a title!" ControlToValidate="TitleTextBox"></asp:RequiredFieldValidator>
     </div>
     
     <div class="form-group">

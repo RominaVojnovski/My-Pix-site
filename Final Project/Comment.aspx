@@ -23,18 +23,7 @@
     <br />
     <h4>Responses</h4>
     <hr />
-    <div class ="row">
-        <div class ="col-md-8">
-            <asp:PlaceHolder ID="PlaceHolderResponses" runat="server"></asp:PlaceHolder>
-        </div>
-        <div class ="col-md-2">
-            <asp:PlaceHolder ID="PlaceHolderDatePoster" runat="server"></asp:PlaceHolder>
-        </div>
-        <div class ="col-md-2">
-
-        </div>
-        
-    </div>
+    <asp:PlaceHolder ID="PlaceHolderDynamicDiv" runat="server"></asp:PlaceHolder>
 
     <div class = "row">
         <div class ="col-md-3">
