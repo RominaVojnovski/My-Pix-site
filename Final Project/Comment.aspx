@@ -24,9 +24,18 @@
     <h4>Responses</h4>
     <hr />
     <div class ="row">
+        <div class ="col-md-8">
+            <asp:PlaceHolder ID="PlaceHolderResponses" runat="server"></asp:PlaceHolder>
+        </div>
+        <div class ="col-md-2">
+            <asp:PlaceHolder ID="PlaceHolderDatePoster" runat="server"></asp:PlaceHolder>
+        </div>
+        <div class ="col-md-2">
 
+        </div>
+        
     </div>
-    <hr />
+
     <div class = "row">
         <div class ="col-md-3">
 
@@ -37,7 +46,7 @@
             <asp:TextBox ID="TextBoxResponse" runat="server" Height="129px"  Width="416px" TextMode="MultiLine"></asp:TextBox>
             <br />
             <br />
-            <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click" />
+            <asp:Button ID="Button1" runat="server" Text="Reply" OnClick="Button1_Click" />
         </div>
         <div class ="col-md-3">
 

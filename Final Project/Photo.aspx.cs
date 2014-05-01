@@ -158,7 +158,7 @@ namespace Final_Project
                 cdb.SaveChanges();
             };
             OutputLabel.Text = "Your comment has been submitted!";
-           Response.Redirect("Photo.aspx?ID="+imgID);
+            Response.Redirect("Photo.aspx?ID=" + imgID);
         }
     }
 }

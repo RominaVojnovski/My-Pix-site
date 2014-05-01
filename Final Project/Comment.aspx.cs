@@ -17,16 +17,22 @@ namespace Final_Project
         Comment mycomment;
         protected void Page_Load(object sender, EventArgs e)
         {
+            /*If user is not authenticated send them to login*/
             if (!User.Identity.IsAuthenticated)
             {
                 Response.Redirect("~/Account/Login");
             }
+            /*set commentID from query string ID parameter*/
             commentID = Request.QueryString["ID"];
+
+            /*if commentID is not valid give the user a message*/
             if (commentID == null || commentID == "")
             {
                 
                 return;
             }
+            /*if commentID is valid proceed to show 
+              photo, photo info, comment, and responses if any*/
             else
             {
                 cid = Convert.ToInt32(commentID);
@@ -35,14 +41,40 @@ namespace Final_Project
                 {
                     /* grab the comment that matches the query string ID*/
                     mycomment = (from c in db.Comments
-                                         where c.CommentId == cid
-                                         select c).FirstOrDefault();
+                                 where c.CommentId == cid
+                                 select c).FirstOrDefault();
 
                     commentedPhoto = mycomment.Photo;
                     MainImage.ImageUrl = commentedPhoto.PhotoPath;
                     LabelCommentTitle.Text = mycomment.Title;
                     LabelCommentBody.Text = mycomment.CommentText;
 
+                    List<Response> commentresponses = mycomment.Responses.ToList();
+                    
+                    /* If there are responses associated with comment...*/
+                    if (commentresponses != null)
+                    {
+                        /*add each response text to the placeholder as a label*/
+                        int r = 0;
+                        foreach (var x in commentresponses)
+                        {
+                            Label newLabel = new Label();
+                            newLabel.ID = "NewLabel" + r;
+                            newLabel.Text = x.ResponseText;
+                            PlaceHolderResponses.Controls.Add(newLabel);
+                            PlaceHolderResponses.Controls.Add(new LiteralControl("<hr />"));
+
+                            Label newLabel2 = new Label();
+                            newLabel2.ID = "NewLabel_2"+ r;
+                            newLabel2.Text = Convert.ToString(x.WhenPosted);
+                            PlaceHolderDatePoster.Controls.Add(newLabel2);
+                            PlaceHolderDatePoster.Controls.Add(new LiteralControl("<hr />"));
+
+                            r++;
+
+                        }
+
+                    }
 
                 }; 
               
@@ -73,8 +105,8 @@ namespace Final_Project
                 mycomment.Responses.Add(newresponse);
                 db2.Responses.Add(newresponse);
                 db2.SaveChanges();
-          
             };
+            Response.Redirect("Comment.aspx?ID=" + commentID);
         }
     }
 }
