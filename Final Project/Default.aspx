@@ -10,31 +10,22 @@
 
     <div class="row">
         <div class="col-md-4">
-            <h2>Get Started</h2>
-            <p>
-            Register for a free account today.
-            </p>
-            <p>
+            <!--<div class ="button" style="border:solid 1px white; width:210px; height: 80px; text-align:center;">
+                <div class="button_inner">
+                    <h2>Get Started</h2>
+                   
+                </div>
                 
-            </p>
+            </div>
+           -->
+            <button class="btnc btnc-1 btnc-1a">&nbsp;&nbsp;Browse&nbsp;&nbsp;</button>
         </div>
         <div class="col-md-4">
-            <h2>Share</h2>
-            <p>
-             Start sharing and upload as many photos as you wish. 
-             </p>
-            <p>
-                
-            </p>
+          <button class="btnc btnc-1 btnc-1a">&nbsp;&nbsp;&nbsp;&nbsp;Share&nbsp;&nbsp;&nbsp;&nbsp;</button>
         </div>
         <div class="col-md-4">
-            <h2>Socialize</h2>
-            <p>
-                You can easily post comments on your favorite pics.
-            </p>
-            <p>
-               
-            </p>
+            <button class="btnc btnc-1 btnc-1a">Socialize</button>
+          
         </div>
     </div>
 

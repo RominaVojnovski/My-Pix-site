@@ -103,32 +103,6 @@
 
             <section id="externalLoginsForm">
 
-                <asp:ListView runat="server"
-                    ItemType="Microsoft.AspNet.Identity.UserLoginInfo"
-                    SelectMethod="GetLogins" DeleteMethod="RemoveLogin" DataKeyNames="LoginProvider,ProviderKey">
-
-                    <LayoutTemplate>
-                        <h4>Registered Logins</h4>
-                        <table class="table">
-                            <tbody>
-                                <tr runat="server" id="itemPlaceholder"></tr>
-                            </tbody>
-                        </table>
-
-                    </LayoutTemplate>
-                    <ItemTemplate>
-                        <tr>
-                            <td><%#: Item.LoginProvider %></td>
-                            <td>
-                                <asp:Button runat="server" Text="Remove" CommandName="Delete" CausesValidation="false"
-                                    ToolTip='<%# "Remove this " + Item.LoginProvider + " login from your account" %>'
-                                    Visible="<%# CanRemoveExternalLogins %>" CssClass="btn btn-default" />
-                            </td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:ListView>
-
-                <uc:OpenAuthProviders runat="server" ReturnUrl="~/Account/Manage" />
             </section>
 
         </div>

@@ -108,19 +108,31 @@ namespace Final_Project
                         string tagtext1 = TagTextBox.Text;
                         if (tagtext1.Length>0)
                         {
-
-                            Models.Tags newTag1 = new Models.Tags();
-                            newTag1.TagText = tagtext1;
-                            newTag1.Photos = new List<Photo>();
-                            newTag1.Photos.Add(myPhoto);
-                            db2.Tags.Add(newTag1);
-                            myPhoto.Tags.Add(newTag1);
+                            /*handle multiple tags if commas and remove whitespace*/
+                            
+                            String[] tagsArray = tagtext1.Split(',').Select(s => s.Trim()).ToArray();
+                            int x=0;
+                            Models.Tags newTag1;
+                            while (x < tagsArray.Length)
+                            {
+                                newTag1 = new Models.Tags
+                                {
+                                  TagText = tagsArray[x],
+                                  Photos = new List<Photo>(),
+                                  
+                                };
+                                newTag1.Photos.Add(myPhoto);     
+                                db2.Tags.Add(newTag1);
+                                myPhoto.Tags.Add(newTag1);
+                                x++;
+                            }
+                           
                             
                         }/*end of tag housekeeping*/
                         db2.Photos.Add(myPhoto);
                         db2.SaveChanges();
                     };
-                    OutputLabel.Text = "File uploaded successfully!";
+                    OutputLabel.Text = "Upload successful!";
                 }
                 else{
                     OutputLabel.Text = "Only .png, .jpg, or .gif file types accepted. You have: "+ext;

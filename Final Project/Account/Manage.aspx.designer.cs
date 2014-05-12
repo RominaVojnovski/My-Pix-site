@@ -58,15 +58,6 @@ namespace Final_Project.Account {
         protected global::System.Web.UI.WebControls.PlaceHolder changePasswordHolder;
         
         /// <summary>
-        /// changePasswordUserName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label changePasswordUserName;
-        
-        /// <summary>
         /// CurrentPasswordLabel control.
         /// </summary>
         /// <remarks>

@@ -13,6 +13,11 @@
     </asp:PlaceHolder>
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="Content/flipping_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="Content/default.css" />
+    <link rel="stylesheet" type="text/css" href="Content/component.css" />
 
 </head>
 <body>
@@ -35,6 +40,7 @@
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
                 <%--Site Scripts--%>
+                <asp:ScriptReference Path="~/Scripts/jquery.flipping_gallery.js" />
             </Scripts>
         </asp:ScriptManager>
 

@@ -26,7 +26,7 @@ namespace Final_Project
             imgID = Request.QueryString["ID"];
             if (imgID == null || imgID == "")
             {
-                Label1.Text = "Oops that image does not exist!";
+                //Label1.Text = "Oops that image does not exist!";
                 return;
             }
             using (MyContext db = new MyContext())
@@ -41,7 +41,7 @@ namespace Final_Project
                 /*if no valid photo queried*/
                 if (photo1 == null)
                 {
-                    Label1.Text = "Ooops that image does not exist!";
+                    //Label1.Text = "Ooops that image does not exist!";
                     return;
                 }
                 /*valid photo being queried*/
