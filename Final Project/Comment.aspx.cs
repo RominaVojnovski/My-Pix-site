@@ -16,6 +16,33 @@ namespace Final_Project
         int cid;
         String commentID;
         Comment mycomment;
+
+        void Page_PreInit(object sender, EventArgs e)
+        {
+
+            string uid = User.Identity.GetUserId();
+
+            /*make sure there is user logged in*/
+            using (ApplicationDbContext db1 = new ApplicationDbContext())
+            {
+                var findUser1 = (from u in db1.Users
+                                 where u.Id == uid
+                                 select u).FirstOrDefault();
+
+                if (findUser1 != null)
+                {
+                    if (findUser1.IsAda)
+                    {
+                        Page.Theme = "ADA";
+                    }
+                }
+
+            };
+
+        }//end preinit
+        
+        
+        
         protected void Page_Load(object sender, EventArgs e)
         {
            
@@ -106,8 +133,23 @@ namespace Final_Project
         {
             /*Add response to mycomment*/
             /*Similar to adding a comment to photo*/
+            string uid = User.Identity.GetUserId();
+            
+            
             using (MyContext db2 = new MyContext())
             {
+                /*make sure user is a poster*/
+                Poster findUser = (from p in db2.Posters
+                                   where p.PosterId == uid
+                                   select p).FirstOrDefault();
+                /*if user is not found in Posters table this means he/she has not confirmed*/
+                if (findUser == null)
+                {
+                    OutputLabel.Text = "Please check your email and confirm your registration first!";
+                    return;
+                }
+                
+                
                 cid = Convert.ToInt32(commentID);
                 mycomment = (from c in db2.Comments
                              where cid == c.CommentId

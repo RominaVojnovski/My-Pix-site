@@ -16,6 +16,34 @@ namespace Final_Project
         int pid;
         Photo photo1;
         String imgID;
+
+        void Page_PreInit(object sender, EventArgs e)
+        {
+
+            string uid = User.Identity.GetUserId();
+
+            /*make sure there is user logged in*/
+            using (ApplicationDbContext db1 = new ApplicationDbContext())
+            {
+                var findUser1 = (from u in db1.Users
+                                 where u.Id == uid
+                                 select u).FirstOrDefault();
+
+                if (findUser1 != null)
+                {
+                    if (findUser1.IsAda)
+                    {
+                        Page.Theme = "ADA";
+                    }
+                }
+
+            };
+
+        }//end preinit
+        
+        
+        
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!User.Identity.IsAuthenticated)
@@ -92,7 +120,11 @@ namespace Final_Project
                             }
                             else
                             {
-                                preview = x.CommentText.Substring(0, 50) + "...";
+                                //preview = x.CommentText.Substring(0, 50) + "...";
+                                preview = truncateString(x.CommentText, 15);
+                            
+                            
+                            
                             }
 
                             /*count how many responsesnum for each comment*/
@@ -129,13 +161,47 @@ namespace Final_Project
             };//end MyContext scope   
         }
 
+        
+        /*truncate custom method*/
+        public static string truncateString(string originalString, int length)
+        {
+            if (string.IsNullOrEmpty(originalString))
+            {
+                return originalString;
+            }
+            if (originalString.Length > length)
+            {
+                return originalString.Substring(0, length) + "...";
+            }
+            else
+            {
+                return originalString;
+            }
+        }
+        
+        
+        
         protected void Button1_Click(object sender, EventArgs e)
         {
+            string uid = User.Identity.GetUserId();
 
             /*add comment to photo*/
 
             using (MyContext cdb = new MyContext())
             {
+
+
+                /*make sure user is a poster*/
+                Poster findUser = (from p in cdb.Posters
+                                   where p.PosterId == uid
+                                   select p).FirstOrDefault();
+                /*if user is not found in Posters table this means he/she has not confirmed*/
+                if (findUser == null)
+                {
+                    OutputLabel.Text = "Please check your email and confirm your registration first!";
+                    return;
+                }
+                
                 pid = Convert.ToInt32(imgID);
                 photo1 = (from p in cdb.Photos
                           where p.PhotoId == pid

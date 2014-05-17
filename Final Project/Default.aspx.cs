@@ -4,13 +4,56 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Final_Project.Models;
 
 namespace Final_Project
 {
     public partial class _Default : Page
     {
+        void Page_PreInit(object sender, EventArgs e)
+        {
+           
+            if (Request.Cookies["UserSettings"] != null)
+            {
+                string userSettings;
+                if (Request.Cookies["UserSettings"]["ADA"] != null)
+                {
+                    userSettings = Request.Cookies["UserSettings"]["ADA"];
+
+                    if (userSettings == "True")
+                    {
+                        Page.Theme = "ADA";
+                    }
+                }
+            }
+            
+   
+            string uid = User.Identity.GetUserId();
+
+            /*make sure there is user logged in*/
+            using (ApplicationDbContext db1 = new ApplicationDbContext())
+            {
+                var findUser1 = (from u in db1.Users
+                                 where u.Id == uid
+                                 select u).FirstOrDefault();
+
+                if (findUser1 != null)
+                {
+                    if (findUser1.IsAda)
+                    {
+                        Page.Theme = "ADA";
+                    }
+                }
+
+            };
+
+        }//end preinit
+        
         protected void Page_Load(object sender, EventArgs e)
         {
+           
 
         }
     }

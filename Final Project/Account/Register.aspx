@@ -16,7 +16,7 @@
                 <asp:TextBox runat="server" ID="users_Name" CssClass="form-control" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="users_Name"
                     CssClass="text-danger" ErrorMessage="The name field is required." />
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Name should be no more than 50 characters long" ControlToValidate="users_Name" Display="Dynamic" ValidationExpression="^[a-zA-Z]{0,50}$"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Name should be no more than 50 characters long" ControlToValidate="users_Name" Display="Dynamic" ValidationExpression="^[a-zA-Z' ']{0,50}$"></asp:RegularExpressionValidator>
             
             
             </div>

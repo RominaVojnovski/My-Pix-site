@@ -14,6 +14,32 @@ namespace Final_Project
 {
     public partial class Upload : System.Web.UI.Page
     {
+
+        void Page_PreInit(object sender, EventArgs e)
+        {
+
+            string uid = User.Identity.GetUserId();
+
+                /*make sure there is user logged in*/
+            using (ApplicationDbContext db1 = new ApplicationDbContext())
+            {
+                var findUser1 = (from u in db1.Users
+                                 where u.Id == uid
+                                 select u).FirstOrDefault();
+
+                if (findUser1 != null)
+                {
+                    if (findUser1.IsAda)
+                    {
+                        Page.Theme = "ADA";
+                    }
+                }
+
+            };
+
+        }//end preinit
+      
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!User.Identity.IsAuthenticated)
@@ -69,13 +95,13 @@ namespace Final_Project
                     /*create bitmap from uploaded image*/
                     Bitmap bmpUploadedImage = new Bitmap(FileUploadPhoto.PostedFile.InputStream);
                     
-                    Bitmap newImage = new Bitmap(400, 300);
+                    Bitmap newImage = new Bitmap(500, 400);
                     using (Graphics gr = Graphics.FromImage(newImage))
                     {
                         gr.SmoothingMode = SmoothingMode.HighQuality;
                         gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
                         gr.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                        gr.DrawImage(bmpUploadedImage, new Rectangle(0, 0, 400, 300));
+                        gr.DrawImage(bmpUploadedImage, new Rectangle(0, 0, 500, 400));
                     }
 
                     System.Drawing.Image newImg = newImage;
@@ -106,33 +132,68 @@ namespace Final_Project
 
                         /*if tags are specified create them in database*/
                         string tagtext1 = TagTextBox.Text;
-                        if (tagtext1.Length>0)
+
+
+                        if (tagtext1.Length > 0)
                         {
                             /*handle multiple tags if commas and remove whitespace*/
-                            
-                            String[] tagsArray = tagtext1.Split(',').Select(s => s.Trim()).ToArray();
-                            int x=0;
+                            string lower = tagtext1.ToLower();
+                            String[] tagsArray = lower.Split(',').Select(s => s.Trim()).ToArray();
+                            int x = 0;
+                            //list of already created tags in db
+                            List<Models.Tags> checktags = db2.Tags.ToList();
+                            bool flag;
                             Models.Tags newTag1;
                             while (x < tagsArray.Length)
                             {
-                                newTag1 = new Models.Tags
+                                /*but first check to see if that tag already exists*/
+                                flag = false;
+                                foreach (var t in checktags)
                                 {
-                                  TagText = tagsArray[x],
-                                  Photos = new List<Photo>(),
-                                  
-                                };
-                                newTag1.Photos.Add(myPhoto);     
-                                db2.Tags.Add(newTag1);
-                                myPhoto.Tags.Add(newTag1);
+                                    /*if the tag entered is equal to a tag in the tag db then skip to the next entered tag*/
+                                    if ((tagsArray[x]).Equals(t.TagText))
+                                    {
+                                        flag = true;
+                                        /*newTag1 = new Models.Tags
+                                        {
+                                            TagText = tagsArray[x],
+                                            Photos = new List<Photo>(),
+                                        };
+                                        */
+                                        t.Photos.Add(myPhoto);
+                                        myPhoto.Tags.Add(t);
+                                        
+                                    }
+                                }
+
+                                if (flag == false)
+                                {
+                                    newTag1 = new Models.Tags
+                                    {
+                                        TagText = tagsArray[x],
+                                        Photos = new List<Photo>(),
+                                    };
+
+                                    newTag1.Photos.Add(myPhoto);
+                                    db2.Tags.Add(newTag1);
+                                    myPhoto.Tags.Add(newTag1);
+                                   
+                                }
+
                                 x++;
-                            }
-                           
-                            
-                        }/*end of tag housekeeping*/
-                        db2.Photos.Add(myPhoto);
-                        db2.SaveChanges();
-                    };
-                    OutputLabel.Text = "Upload successful!";
+
+                            }/*end of tag housekeeping WHILE LOOP*/
+
+                        }//if tags were specified in textbox
+                        
+                            db2.Photos.Add(myPhoto);
+                        
+                            db2.SaveChanges();
+                    
+                        
+                        };
+                    
+                        OutputLabel.Text = "Upload successful!";
                 }
                 else{
                     OutputLabel.Text = "Only .png, .jpg, or .gif file types accepted. You have: "+ext;

@@ -13,6 +13,8 @@ namespace Final_Project
     public partial class Photos : System.Web.UI.Page
     {
         String view;
+        
+        
         public string photoPoster(string uid)
         {
             ApplicationDbContext context = new ApplicationDbContext();
@@ -21,7 +23,29 @@ namespace Final_Project
             return user.UserName;
         }
 
+        void Page_PreInit(object sender, EventArgs e)
+        {
 
+            string uid = User.Identity.GetUserId();
+
+            /*make sure there is user logged in*/
+            using (ApplicationDbContext db1 = new ApplicationDbContext())
+            {
+                var findUser1 = (from u in db1.Users
+                                 where u.Id == uid
+                                 select u).FirstOrDefault();
+
+                if (findUser1 != null)
+                {
+                    if (findUser1.IsAda)
+                    {
+                        Page.Theme = "ADA";
+                    }
+                }
+
+            };
+
+        }//end preinit
 
         protected void Page_Load(object sender, EventArgs e)
         {

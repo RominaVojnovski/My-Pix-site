@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Tags" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Tags.aspx.cs" Inherits="Final_Project.Tags" %>
+﻿<%@ Page Title="Tags" Language="C#" MasterPageFile="~/Site.Master"  AutoEventWireup="true" CodeBehind="Tags.aspx.cs" Inherits="Final_Project.Tags" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Tags</h2>
     <div class ="row">
@@ -49,7 +49,11 @@
 
         var div = document.getElementById('rblistdiv');
         $(document).ready(function () {
+           
+
             $(document.getElementsByName('ctl00$MainContent$RadioButtonListTags')).change(function () {
+                
+
                 if ($("input[name='ctl00$MainContent$RadioButtonListTags']:checked").val()) {
 
                     //$("#updatepaneldiv").animate({ width: 'toggle' });

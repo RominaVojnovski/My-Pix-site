@@ -32,10 +32,11 @@
         <div class ="col-md-6">
             Response:
             <br />
-            <asp:TextBox ID="TextBoxResponse" runat="server" Height="129px"  Width="416px" TextMode="MultiLine"></asp:TextBox>
+            <asp:TextBox ID="TextBoxResponse" SkinId="ResponseMultiTextSkin" runat="server" Height="129px"  Width="416px" TextMode="MultiLine"></asp:TextBox>
             <br />
             <br />
             <asp:Button ID="Button1" runat="server" Text="Reply" OnClick="Button1_Click" />
+            <asp:Label ID="OutputLabel" runat="server"></asp:Label>
         </div>
         <div class ="col-md-3">
 

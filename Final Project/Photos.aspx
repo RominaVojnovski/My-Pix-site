@@ -15,7 +15,7 @@
         <div class="col-md-12">
             
             <div id ="gridDiv">
-                <asp:GridView ID="PhotosGridView" runat="server" Width="510px" AutoGenerateColumns="False" Height="300px">
+                <asp:GridView ID="PhotosGridView" runat="server" GridLines="None" Width="719px" AutoGenerateColumns="False" Height="300px">
                     <Columns>
                         <asp:TemplateField HeaderText="Thumb">
                             <ItemTemplate>
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2">
 
         </div>
         <div class="col-md-8">
@@ -49,6 +49,18 @@
                         <a href="#"><img src=<%#Eval("FullPhotoPath")%>></a> 
                     </ItemTemplate>
                 </asp:ListView>
+            </div>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+    <div id="blank_space">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="emtpydiv" style="height:400px;">
+                
+                </div>
             </div>
         </div>
     </div>
@@ -67,14 +79,20 @@
             }
         }
         
+       
+
+
+
+
         $(window).ready(function () {
             if(getQuerystring("view")=="gallery"){
-
+                $("#emptydiv").show();
                 $("#galleryDiv").flipping_gallery({
                     enableScroll: false
                 });
                 
-            };
+            }
+    
         });
   
     </script>

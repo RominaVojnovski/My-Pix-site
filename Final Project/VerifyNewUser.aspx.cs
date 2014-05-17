@@ -12,6 +12,31 @@ namespace Final_Project
 {
     public partial class VerifyNewUser : System.Web.UI.Page
     {
+        void Page_PreInit(object sender, EventArgs e)
+        {
+
+            string uid = User.Identity.GetUserId();
+
+            /*make sure there is user logged in*/
+            using (ApplicationDbContext db1 = new ApplicationDbContext())
+            {
+                var findUser1 = (from u in db1.Users
+                                 where u.Id == uid
+                                 select u).FirstOrDefault();
+
+                if (findUser1 != null)
+                {
+                    if (findUser1.IsAda)
+                    {
+                        Page.Theme = "ADA";
+                    }
+                }
+
+            };
+
+        }//end preinit
+        
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Request.QueryString["ID"]))

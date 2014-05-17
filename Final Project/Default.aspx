@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1> My Pix</h1>
+        <h1> My Pix</h1><img src="Images/photo.jpg" />
         <p class="lead">My Pix is a photo sharing hub</p>
         <p><a href="Account/Register" class="btn btn-primary btn-large">Sign up!&raquo;</a></p>
     </div>
